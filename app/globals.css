@@ -1,0 +1,242 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Custom dark theme with lime-blue (sky-500) accents for ABDELHAMID portfolio */
+  --background: #f0f4ef; /* baby_powder for light backgrounds */
+  --foreground: #0d1821; /* rich_black for text */
+  --card: #f0f4ef; /* baby_powder for cards */
+  --card-foreground: #0d1821; /* rich_black for card text */
+  --popover: #f0f4ef; /* baby_powder for popovers */
+  --popover-foreground: #0d1821; /* rich_black for popover text */
+  --primary: #344966; /* indigo_dye for primary elements */
+  --primary-foreground: #f0f4ef; /* baby_powder for primary text */
+  --secondary: #b4cded; /* powder_blue for secondary elements */
+  --secondary-foreground: #0d1821; /* rich_black for secondary text */
+  --muted: #b4cded; /* powder_blue for muted elements */
+  --muted-foreground: #344966; /* indigo_dye for muted text */
+  --accent: #b4cded; /* powder_blue for accents */
+  --accent-foreground: #0d1821; /* rich_black for accent text */
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: #b4cded; /* powder_blue for borders */
+  --input: #f0f4ef; /* baby_powder for inputs */
+  --ring: #344966; /* indigo_dye for focus rings */
+  --chart-1: #344966; /* indigo_dye */
+  --chart-2: #b4cded; /* powder_blue */
+  --chart-3: #0d1821; /* rich_black */
+  --chart-4: #f0f4ef; /* baby_powder */
+  --chart-5: #344966; /* indigo_dye variant */
+  --radius: 0.625rem;
+  --sidebar: #f0f4ef; /* baby_powder */
+  --sidebar-foreground: #0d1821; /* rich_black */
+  --sidebar-primary: #344966; /* indigo_dye */
+  --sidebar-primary-foreground: #f0f4ef; /* baby_powder */
+  --sidebar-accent: #b4cded; /* powder_blue */
+  --sidebar-accent-foreground: #0d1821; /* rich_black */
+  --sidebar-border: #b4cded; /* powder_blue */
+  --sidebar-ring: #344966; /* indigo_dye */
+}
+
+.dark {
+  --background: #0d1821; /* rich_black for dark backgrounds */
+  --foreground: #f0f4ef; /* baby_powder for dark text */
+  --card: #0d1821; /* rich_black for dark cards */
+  --card-foreground: #f0f4ef; /* baby_powder for dark card text */
+  --popover: #0d1821; /* rich_black for dark popovers */
+  --popover-foreground: #f0f4ef; /* baby_powder for dark popover text */
+  --primary: #b4cded; /* powder_blue for dark primary elements */
+  --primary-foreground: #0d1821; /* rich_black for dark primary text */
+  --secondary: #344966; /* indigo_dye for dark secondary elements */
+  --secondary-foreground: #f0f4ef; /* baby_powder for dark secondary text */
+  --muted: #344966; /* indigo_dye for dark muted elements */
+  --muted-foreground: #b4cded; /* powder_blue for dark muted text */
+  --accent: #344966; /* indigo_dye for dark accents */
+  --accent-foreground: #f0f4ef; /* baby_powder for dark accent text */
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: #344966; /* indigo_dye for dark borders */
+  --input: #344966; /* indigo_dye for dark inputs */
+  --ring: #b4cded; /* powder_blue for dark focus rings */
+  --chart-1: #b4cded; /* powder_blue */
+  --chart-2: #f0f4ef; /* baby_powder */
+  --chart-3: #344966; /* indigo_dye */
+  --chart-4: #0d1821; /* rich_black */
+  --chart-5: #b4cded; /* powder_blue variant */
+  --sidebar: #0d1821; /* rich_black */
+  --sidebar-foreground: #f0f4ef; /* baby_powder */
+  --sidebar-primary: #b4cded; /* powder_blue */
+  --sidebar-primary-foreground: #0d1821; /* rich_black */
+  --sidebar-accent: #344966; /* indigo_dye */
+  --sidebar-accent-foreground: #f0f4ef; /* baby_powder */
+  --sidebar-border: #344966; /* indigo_dye */
+  --sidebar-ring: #b4cded; /* powder_blue */
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  /* Updated font variables for Montserrat, Alan Sans, and Bitcount Single Ink */
+  --font-montserrat: var(--font-montserrat);
+  --font-alan-sans: var(--font-alan-sans);
+  --font-bitcount-single-ink: var(--font-bitcount-single-ink);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Added custom color classes for the new palette */
+  --color-rich-black: #0d1821;
+  --color-indigo-dye: #344966;
+  --color-powder-blue: #b4cded;
+  --color-baby-powder: #f0f4ef;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow,
+      transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Apply Alan Sans font to all headings and paragraphs globally */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-alan-sans);
+  }
+
+  p {
+    font-family: var(--font-alan-sans);
+  }
+}
+
+/* Custom gradient backgrounds for hero section */
+.hero-gradient {
+  background: linear-gradient(135deg, #0d1821 0%, #344966 100%);
+}
+
+/* Custom animations for hero section */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fade-in 1s ease-out 0.2s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fade-in 1s ease-out 0.4s both;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fade-in 1s ease-out 0.6s both;
+}
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Enhanced card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+/* Navbar blur effect enhancement */
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Button hover enhancements */
+button,
+.button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover,
+.button:hover {
+  transform: translateY(-1px);
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid oklch(0.7 0.15 200);
+  outline-offset: 2px;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #b4cded, #344966);
+  transform-origin: left;
+  z-index: 9999;
+}
