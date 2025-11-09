@@ -1,7 +1,8 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Calendar, GraduationCap } from "lucide-react"
+import { GraduationCap } from "lucide-react"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { MotionWrapper, HoverWrapper, staggerContainer } from "./motion-wrapper"
 
@@ -16,7 +17,7 @@ export function AboutSection() {
   }
 
   return (
-    <section id="about" className="py-20 bg-background">
+    <section id="about" className="py-20 bg-background relative min-h-screen flex items-center">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <MotionWrapper>
@@ -41,11 +42,15 @@ export function AboutSection() {
                       transition: { duration: 0.3 },
                     }}
                   >
-                    <div className="w-full h-full rounded-full bg-muted flex items-center justify-center">
-                      <img
-                        src="/professional-developer-portrait.png"
+                    <div className="w-full h-full rounded-full bg-muted flex items-center justify-center relative overflow-hidden">
+                      <Image
+                        src="/logo1.png"
                         alt="ABDELHAMID Profile"
-                        className="w-72 h-72 rounded-full object-cover"
+                        width={300}
+                        height={300}
+                        className="rounded-full object-cover w-full h-full"
+                        priority
+                        sizes="(max-width: 768px) 280px, 320px"
                       />
                     </div>
                   </motion.div>
@@ -69,7 +74,7 @@ export function AboutSection() {
                 </div>
 
                 <motion.div
-                  className="grid md:grid-cols-3 gap-4"
+                  className="grid md:grid-cols-1 gap-4"
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
@@ -78,40 +83,12 @@ export function AboutSection() {
                   <motion.div variants={cardVariants}>
                     <HoverWrapper scale={1.05}>
                       <Card className="bg-card border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                        <CardContent className="p-6 text-center">
-                          <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
-                            <Calendar className="w-8 h-8 text-primary mx-auto mb-3" />
-                          </motion.div>
-                          <h3 className="font-semibold text-card-foreground mb-1">Experience</h3>
-                          <p className="text-sm text-muted-foreground">5+ Years</p>
-                        </CardContent>
-                      </Card>
-                    </HoverWrapper>
-                  </motion.div>
-
-                  <motion.div variants={cardVariants}>
-                    <HoverWrapper scale={1.05}>
-                      <Card className="bg-card border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                        <CardContent className="p-6 text-center">
+                        <CardContent className="p-1 text-center">
                           <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
                             <GraduationCap className="w-8 h-8 text-primary mx-auto mb-3" />
                           </motion.div>
                           <h3 className="font-semibold text-card-foreground mb-1">Education</h3>
-                          <p className="text-sm text-muted-foreground">Computer Science</p>
-                        </CardContent>
-                      </Card>
-                    </HoverWrapper>
-                  </motion.div>
-
-                  <motion.div variants={cardVariants}>
-                    <HoverWrapper scale={1.05}>
-                      <Card className="bg-card border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                        <CardContent className="p-6 text-center">
-                          <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
-                            <MapPin className="w-8 h-8 text-primary mx-auto mb-3" />
-                          </motion.div>
-                          <h3 className="font-semibold text-card-foreground mb-1">Location</h3>
-                          <p className="text-sm text-muted-foreground">Available Remote</p>
+                          <p className="text-sm text-muted-foreground">Web development</p>
                         </CardContent>
                       </Card>
                     </HoverWrapper>

@@ -77,7 +77,7 @@ export function Footer() {
   const codeSymbols = ["<>", "{}", "[]", "()", "0", "1", "0", "1", "</", "/>", "&&", "||"]
 
   return (
-    <footer id="contact" className="relative overflow-hidden">
+    <footer id="contact" className="relative overflow-hidden bg-gradient-to-br from-[#0d1821] to-[#344966]">
       {/* Wave Divider */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
         <svg 
@@ -97,8 +97,8 @@ export function Footer() {
         </svg>
       </div>
       
-      {/* Gradient Background */}
-      <div className="bg-gradient-to-br from-[#0d1821] to-[#344966] pt-20 relative">
+      {/* Main Footer Content */}
+      <div className="pt-20 relative">
         {/* Footer Background Animations */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Floating Code Particles */}
@@ -399,9 +399,6 @@ export function Footer() {
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <p className="text-[#b4cded] text-sm">
                   © {currentYear} ABDELHAMID. All rights reserved.
-                </p>
-                <p className="text-[#b4cded] text-sm flex items-center">
-                  Made with <Heart className="w-4 h-4 text-[#b4cded] mx-1" /> using Next.js & Tailwind CSS
                 </p>
               </div>
             </motion.div>

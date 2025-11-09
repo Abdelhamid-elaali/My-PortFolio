@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 
 export function AnimatedBackground() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -9,7 +9,10 @@ export function AnimatedBackground() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      // Throttle mouse move events for better performance
+      requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY })
+      })
     }
 
     const handleResize = () => {
@@ -26,11 +29,15 @@ export function AnimatedBackground() {
     }
   }, [])
 
-  const particleCount = windowSize.width < 768 ? 15 : windowSize.width < 1024 ? 25 : 35
-  const waveCount = windowSize.width < 768 ? 3 : 5
-  const codeParticleCount = windowSize.width < 768 ? 8 : windowSize.width < 1024 ? 12 : 18
-  const networkNodeCount = windowSize.width < 768 ? 6 : windowSize.width < 1024 ? 10 : 15
-  const codeSymbols = ["<>", "{}", "[]", "()", "0", "1", "0", "1", "</", "/>", "&&", "||"]
+  // Memoize particle counts to prevent recalculation
+  const particleCounts = useMemo(() => ({
+    particleCount: windowSize.width < 768 ? 8 : windowSize.width < 1024 ? 15 : 20,
+    waveCount: windowSize.width < 768 ? 2 : 3,
+    codeParticleCount: windowSize.width < 768 ? 4 : windowSize.width < 1024 ? 6 : 8,
+    networkNodeCount: windowSize.width < 768 ? 3 : windowSize.width < 1024 ? 5 : 8,
+  }), [windowSize.width])
+
+  const codeSymbols = ["<>", "{}", "[]", "()", "0", "1", "</>", "/>", "&&", "||"]
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
@@ -44,7 +51,7 @@ export function AnimatedBackground() {
           ],
         }}
         transition={{
-          duration: 20,
+          duration: 30, // Increased duration for better performance
           repeat: Number.POSITIVE_INFINITY,
           repeatType: "reverse",
           ease: "easeInOut",
@@ -114,7 +121,7 @@ export function AnimatedBackground() {
         initial={{ x: "40%", y: "80%" }}
       />
 
-      {Array.from({ length: codeParticleCount }).map((_, i) => {
+      {Array.from({ length: particleCounts.codeParticleCount }).map((_, i) => {
         const symbol = codeSymbols[i % codeSymbols.length]
         const isBinary = symbol === "0" || symbol === "1"
         return (
@@ -129,13 +136,13 @@ export function AnimatedBackground() {
               fontWeight: isBinary ? "300" : "500",
             }}
             animate={{
-              y: [0, -200 - Math.random() * 150, 0],
-              x: [0, (Math.random() - 0.5) * 80, 0],
-              opacity: [0, 0.3, 0],
-              rotate: [0, (Math.random() - 0.5) * 20, 0],
+              y: [0, -150 - Math.random() * 100, 0], // Reduced animation range
+              x: [0, (Math.random() - 0.5) * 40, 0], // Reduced horizontal movement
+              opacity: [0, 0.2, 0], // Reduced max opacity
+              rotate: [0, (Math.random() - 0.5) * 10, 0], // Reduced rotation
             }}
             transition={{
-              duration: 8 + Math.random() * 6,
+              duration: 12 + Math.random() * 8, // Increased duration for better performance
               repeat: Number.POSITIVE_INFINITY,
               delay: Math.random() * 5,
               ease: "easeInOut",
@@ -147,7 +154,7 @@ export function AnimatedBackground() {
       })}
 
       <svg className="absolute inset-0 w-full h-full opacity-10" style={{ filter: "blur(0.5px)" }}>
-        {Array.from({ length: networkNodeCount }).map((_, i) => {
+        {Array.from({ length: particleCounts.networkNodeCount }).map((_, i) => {
           const x = (Math.sin(i * 2.5) * 0.3 + 0.5) * 100
           const y = (Math.cos(i * 1.8) * 0.3 + 0.5) * 100
           return (
@@ -168,9 +175,9 @@ export function AnimatedBackground() {
                   ease: "easeInOut",
                 }}
               />
-              {Array.from({ length: Math.min(3, networkNodeCount - i - 1) }).map((_, j) => {
+              {Array.from({ length: Math.min(3, particleCounts.networkNodeCount - i - 1) }).map((_, j) => {
                 const nextIndex = i + j + 1
-                if (nextIndex >= networkNodeCount) return null
+                if (nextIndex >= particleCounts.networkNodeCount) return null
                 const nextX = (Math.sin(nextIndex * 2.5) * 0.3 + 0.5) * 100
                 const nextY = (Math.cos(nextIndex * 1.8) * 0.3 + 0.5) * 100
                 const distance = Math.sqrt(Math.pow(nextX - x, 2) + Math.pow(nextY - y, 2))
@@ -204,7 +211,7 @@ export function AnimatedBackground() {
         })}
       </svg>
 
-      {Array.from({ length: waveCount }).map((_, i) => (
+      {Array.from({ length: particleCounts.waveCount }).map((_, i) => (
         <motion.div
           key={`wave-${i}`}
           className="absolute opacity-5"
@@ -236,7 +243,7 @@ export function AnimatedBackground() {
         />
       ))}
 
-      {Array.from({ length: particleCount }).map((_, i) => (
+      {Array.from({ length: particleCounts.particleCount }).map((_, i) => (
         <motion.div
           key={`particle-${i}`}
           className="absolute rounded-full"

@@ -7,8 +7,8 @@ import { motion } from "framer-motion"
 import { MotionWrapper, HoverWrapper, staggerContainer } from "./motion-wrapper"
 import Image from "next/image"
 
-// Individual skill icons mapping
-const skillIcons = [
+// Icons for categorized sections (Frontend, Backend, Database & DevOps)
+const categorySkillIcons = [
   { name: "React", icon: "/skills/react.png", level: "Expert" },
   { name: "Next.js", icon: "/skills/next.png", level: "Expert" },
   { name: "TypeScript", icon: "/skills/Ts.png", level: "Advanced" },
@@ -19,10 +19,28 @@ const skillIcons = [
   { name: "Node.js", icon: "/skills/node.png", level: "Advanced" },
   { name: "PHP", icon: "/skills/php.png", level: "Expert" },
   { name: "Python", icon: "/skills/python.png", level: "Intermediate" },
-  { name: "MySQL", icon: "/skills/mysql.png", level: "Expert" },
-  { name: "Docker", icon: "/skills/docker.png", level: "Advanced" },
-  { name: "Linux", icon: "/skills/lunix.png", level: "Advanced" },
+  { name: "MySQL", icon: "/skills/mysql1.png", level: "Expert" },
+  { name: "Mongodb", icon: "/skills/mongodb.png", level: "Advanced" },
+  { name: "Git", icon: "/skills/Git.png", level: "Advanced" },
   { name: "Laravel", icon: "/skills/laravel.png", level: "Expert" },
+]
+
+// Icons for Technologies & Tools grid section
+const techToolsIcons = [
+  { name: "GitHub", icon: "/assets/skills/github1.png", level: "Expert" },
+  { name: "GitLab", icon: "/assets/skills/gitlab.png", level: "Advanced" },
+  { name: "Jira", icon: "/assets/skills/jira.png", level: "Advanced" },
+  { name: "Scrum", icon: "/assets/skills/scrum1.png", level: "Advanced" },
+  { name: "Trello", icon: "/assets/skills/trello.png", level: "Intermediate" },
+  { name: "VMware", icon: "/assets/skills/vmware.png", level: "Advanced" },
+  { name: "VirtualBox", icon: "/assets/skills/virtualbox.png", level: "Advanced" },
+  { name: "Android Studio", icon: "/assets/skills/android-studio.png", level: "Intermediate" },
+  { name: "n8n", icon: "/assets/skills/n8n.png", level: "Intermediate" },
+  { name: "Linux", icon: "/assets/skills/linux.png", level: "Advanced" },
+  { name: "UML", icon: "/assets/skills/uml.png", level: "Intermediate" },
+  { name: "Postman", icon: "/assets/skills/postman.png", level: "Advanced" },
+  { name: "Figma", icon: "/assets/skills/figma1.png", level: "Advanced" },
+  { name: "Docker", icon: "/assets/skills/docker.png", level: "Intermediate" },
 ]
 
 const skillCategories = [
@@ -57,8 +75,8 @@ const skillCategories = [
     color: "text-accent",
     skills: [
       { name: "MySQL", level: "Expert" },
-      { name: "Docker", level: "Advanced" },
-      { name: "Linux", level: "Advanced" },
+      { name: "Mongodb", level: "Advanced" },
+      { name: "Git", level: "Advanced" },
     ],
   },
 ]
@@ -82,7 +100,7 @@ export function SkillsSection() {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] },
+      transition: { duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] as const },
     },
   }
 
@@ -91,12 +109,12 @@ export function SkillsSection() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] },
+      transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] as const },
     },
   }
 
   return (
-    <section id="skills" className="py-20 bg-muted/30">
+    <section id="skills" className="py-20 bg-muted/30 min-h-screen flex items-center">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <MotionWrapper>
@@ -127,7 +145,7 @@ export function SkillsSection() {
                     visible: {
                       opacity: 1,
                       y: 0,
-                      transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+                      transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] as const },
                     },
                   }}
                 >
@@ -156,7 +174,7 @@ export function SkillsSection() {
                           viewport={{ once: true }}
                         >
                           {category.skills.map((skill, skillIndex) => {
-                            const skillIcon = skillIcons.find(s => s.name === skill.name)
+                            const skillIcon = categorySkillIcons.find(s => s.name === skill.name)
                             return (
                               <motion.div
                                 key={skillIndex}
@@ -209,7 +227,7 @@ export function SkillsSection() {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                {skillIcons.map((skill, index) => (
+                {techToolsIcons.map((skill, index) => (
                   <motion.div
                     key={index}
                     className="flex flex-col items-center group"
@@ -218,7 +236,7 @@ export function SkillsSection() {
                       visible: {
                         opacity: 1,
                         y: 0,
-                        transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] },
+                        transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] as const },
                       },
                     }}
                   >

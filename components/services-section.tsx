@@ -54,7 +54,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section id="services" className="py-20 bg-muted/30">
+    <section id="services" className="py-20 bg-muted/30 min-h-screen flex items-center">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <MotionWrapper>

@@ -5,38 +5,38 @@ import { useRef, type ReactNode } from "react"
 
 // Animation variants for different entrance effects
 export const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: 40 }, // Reduced from 60
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: { duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] as const }, // Reduced from 0.6
   },
 }
 
 export const fadeInLeft = {
-  hidden: { opacity: 0, x: -60 },
+  hidden: { opacity: 0, x: -40 }, // Reduced from 60
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: { duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] as const }, // Reduced from 0.6
   },
 }
 
 export const fadeInRight = {
-  hidden: { opacity: 0, x: 60 },
+  hidden: { opacity: 0, x: 40 }, // Reduced from 60
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: { duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] as const }, // Reduced from 0.6
   },
 }
 
 export const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.9 }, // Reduced from 0.8
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] },
+    transition: { duration: 0.3, ease: [0.6, -0.05, 0.01, 0.99] as const }, // Reduced from 0.5
   },
 }
 
@@ -44,8 +44,8 @@ export const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
+      staggerChildren: 0.15, // Reduced from 0.1
+      delayChildren: 0.05, // Reduced from 0.1
     },
   },
 }
@@ -120,12 +120,12 @@ interface HoverWrapperProps {
   className?: string
 }
 
-export function HoverWrapper({ children, scale = 1.05, className = "" }: HoverWrapperProps) {
+export function HoverWrapper({ children, scale = 1.03, className = "" }: HoverWrapperProps) { // Reduced from 1.05
   return (
     <motion.div
       whileHover={{
         scale,
-        transition: { duration: 0.2, ease: "easeOut" },
+        transition: { duration: 0.15, ease: "easeOut" }, // Reduced from 0.2
       }}
       whileTap={{ scale: 0.98 }}
       className={className}

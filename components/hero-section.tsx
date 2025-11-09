@@ -58,7 +58,7 @@ export function HeroSection() {
             variants={nameVariants}
           >
             <TypewriterEffect
-              text="ABDELHAMID"
+              words={["ABDELHAMID", "EL AALI", "FullStack Developer", "Creative Coder", "Problem Solver"]}
               className="text-[#b4cded]"
               speed={200}
               deleteSpeed={150}

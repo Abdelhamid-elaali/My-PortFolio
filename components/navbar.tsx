@@ -19,28 +19,58 @@ export function Navbar() {
   const [logoClicked, setLogoClicked] = useState(false)
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50)
+          
+          // Real-time scroll spy calculation
+          const scrollPosition = window.scrollY + 100 // Offset for navbar height
+          const sections = navItems.map((item) => item.href.substring(1))
+          
+          for (const sectionId of sections) {
+            const element = document.getElementById(sectionId)
+            if (element) {
+              const { offsetTop, offsetHeight } = element
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveSection(sectionId)
+                break
+              }
+            }
+          }
+          
+          ticking = false
+        })
+        ticking = true
+      }
     }
-    window.addEventListener("scroll", handleScroll)
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    
+    // Initial call
+    handleScroll()
+
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Enhanced Intersection Observer for backup detection
   useEffect(() => {
-    const sections = navItems.map((item) => item.href.substring(1)) // Remove # from href
+    const sections = navItems.map((item) => item.href.substring(1))
     const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean)
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
             setActiveSection(entry.target.id)
           }
         })
       },
       {
-        threshold: [0.5],
-        rootMargin: "-20% 0px -20% 0px", // Only trigger when section is well within viewport
+        threshold: [0.1, 0.3, 0.5],
+        rootMargin: "-10% 0px -60% 0px", // More lenient for better detection
       },
     )
 
@@ -71,7 +101,7 @@ export function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border" : "bg-transparent"
+        isScrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4">

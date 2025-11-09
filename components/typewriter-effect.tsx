@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 interface TypewriterEffectProps {
-  text: string
+  words?: string[]
+  text?: string
   className?: string
   speed?: number
   deleteSpeed?: number
@@ -13,7 +14,8 @@ interface TypewriterEffectProps {
 }
 
 export function TypewriterEffect({
-  text,
+  words = [],
+  text = "",
   className = "",
   speed = 150,
   deleteSpeed = 100,
@@ -23,6 +25,10 @@ export function TypewriterEffect({
   const [displayText, setDisplayText] = useState("")
   const [isDeleting, setIsDeleting] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
+  const [wordIndex, setWordIndex] = useState(0)
+  
+  // Use either the words array or single text
+  const currentText = words.length > 0 ? words[wordIndex] : text
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
@@ -30,8 +36,8 @@ export function TypewriterEffect({
     const typeText = () => {
       if (!isDeleting) {
         // Typing phase
-        if (displayText.length < text.length) {
-          setDisplayText(text.slice(0, displayText.length + 1))
+        if (displayText.length < currentText.length) {
+          setDisplayText(currentText.slice(0, displayText.length + 1))
           timeout = setTimeout(typeText, speed)
         } else {
           // Pause before deleting
@@ -49,6 +55,10 @@ export function TypewriterEffect({
           timeout = setTimeout(typeText, deleteSpeed)
         } else {
           setIsDeleting(false)
+          // Move to next word if using words array
+          if (words.length > 0) {
+            setWordIndex((prev) => (prev + 1) % words.length)
+          }
           timeout = setTimeout(typeText, speed)
         }
       }
@@ -57,7 +67,7 @@ export function TypewriterEffect({
     timeout = setTimeout(typeText, speed)
 
     return () => clearTimeout(timeout)
-  }, [displayText, isDeleting, text, speed, deleteSpeed, pauseDuration, loop])
+  }, [displayText, isDeleting, currentText, words, wordIndex, speed, deleteSpeed, pauseDuration, loop])
 
   // Cursor blinking effect
   useEffect(() => {

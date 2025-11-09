@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Github } from "lucide-react"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { MotionWrapper, HoverWrapper, staggerContainer } from "./motion-wrapper"
 
@@ -70,7 +71,7 @@ export function ProjectsSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] },
+      transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] as const },
     },
   }
 
@@ -79,12 +80,12 @@ export function ProjectsSection() {
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
+      transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] as const },
     },
   }
 
   return (
-    <section id="projects" className="py-20 bg-background">
+    <section id="projects" className="py-20 bg-background min-h-screen flex items-center">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           <MotionWrapper>
@@ -110,16 +111,23 @@ export function ProjectsSection() {
                 <HoverWrapper scale={1.02}>
                   <Card className="bg-card border-border overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 group">
                     <div className="aspect-video bg-muted relative overflow-hidden">
-                      <motion.img
-                        src={project.image || "/placeholder.svg"}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
+                      <motion.div
                         variants={imageVariants}
                         whileHover={{
                           scale: 1.1,
                           transition: { duration: 0.4 },
                         }}
-                      />
+                        className="w-full h-full"
+                      >
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          loading="lazy"
+                        />
+                      </motion.div>
                       <motion.div
                         className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         initial={{ opacity: 0 }}

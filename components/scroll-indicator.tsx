@@ -6,14 +6,44 @@ export function ScrollIndicator() {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
+    let rafId: number
+
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      const progress = (window.scrollY / totalHeight) * 100
-      setScrollProgress(progress)
+      // Cancel previous RAF to prevent unnecessary updates
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
+
+      rafId = requestAnimationFrame(() => {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+        const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0
+        setScrollProgress(Math.min(100, Math.max(0, progress)))
+      })
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    // Throttled scroll handler for better performance
+    let ticking = false
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener("scroll", throttledScroll, { passive: true })
+    
+    // Initial calculation
+    handleScroll()
+
+    return () => {
+      window.removeEventListener("scroll", throttledScroll)
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
+    }
   }, [])
 
   return (
