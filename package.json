@@ -11,6 +11,7 @@
     "analyze:server": "ANALYZE=true next build --experimental-app-dir"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@emotion/is-prop-valid": "latest",
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^3.10.0",

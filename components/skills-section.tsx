@@ -4,8 +4,59 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Code2, Server, Database, Globe, Smartphone, Cloud, Layers } from "lucide-react"
 import { motion } from "framer-motion"
-import { MotionWrapper, HoverWrapper, staggerContainer } from "./motion-wrapper"
 import Image from "next/image"
+import { MotionWrapper, HoverWrapper, staggerContainer } from "./motion-wrapper"
+// Custom animation variants for Technologies & Tools section
+const techToolsContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const techToolItem = {
+  hidden: { 
+    opacity: 0, 
+    y: 15,
+    scale: 0.95
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      damping: 20,
+      stiffness: 300,
+      mass: 0.8,
+    },
+  },
+}
+
+const techToolHover = {
+  scale: 1.05,
+  y: -2,
+  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+  transition: {
+    type: "spring",
+    stiffness: 400,
+    damping: 17,
+    mass: 0.5,
+  },
+}
+
+const techToolTap = {
+  scale: 0.98,
+  transition: {
+    type: "spring",
+    stiffness: 600,
+    damping: 30,
+  },
+}
 
 // Icons for categorized sections (Frontend, Backend, Database & DevOps)
 const categorySkillIcons = [
@@ -29,7 +80,7 @@ const categorySkillIcons = [
 const techToolsIcons = [
   { name: "GitHub", icon: "/assets/skills/github1.png", level: "Expert" },
   { name: "GitLab", icon: "/assets/skills/gitlab.png", level: "Advanced" },
-  { name: "Jira", icon: "/assets/skills/jira.png", level: "Advanced" },
+  { name: "Jira", icon: "/assets/skills/jira1.png", level: "Advanced" },
   { name: "Scrum", icon: "/assets/skills/scrum1.png", level: "Advanced" },
   { name: "Trello", icon: "/assets/skills/trello.png", level: "Intermediate" },
   { name: "VMware", icon: "/assets/skills/vmware.png", level: "Advanced" },
@@ -39,7 +90,7 @@ const techToolsIcons = [
   { name: "Linux", icon: "/assets/skills/linux.png", level: "Advanced" },
   { name: "UML", icon: "/assets/skills/uml.png", level: "Intermediate" },
   { name: "Postman", icon: "/assets/skills/postman.png", level: "Advanced" },
-  { name: "Figma", icon: "/assets/skills/figma1.png", level: "Advanced" },
+  { name: "Figma", icon: "/assets/skills/figma.png", level: "Advanced" },
   { name: "Docker", icon: "/assets/skills/docker.png", level: "Intermediate" },
 ]
 
@@ -222,32 +273,21 @@ export function SkillsSection() {
               </h3>
               <motion.div
                 className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-6"
-                variants={staggerContainer}
+                variants={techToolsContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
               >
                 {techToolsIcons.map((skill, index) => (
                   <motion.div
                     key={index}
                     className="flex flex-col items-center group"
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] as const },
-                      },
-                    }}
+                    variants={techToolItem}
                   >
                     <motion.div
-                      className="relative p-4 rounded-2xl bg-card border border-border hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
-                      whileHover={{
-                        scale: 1.1,
-                        y: -5,
-                        transition: { duration: 0.3 },
-                      }}
-                      whileTap={{ scale: 0.95 }}
+                      className="relative p-4 rounded-2xl bg-card border border-border"
+                      whileHover={techToolHover}
+                      whileTap={techToolTap}
                     >
                       <Image
                         src={skill.icon}
@@ -257,13 +297,20 @@ export function SkillsSection() {
                         className="w-12 h-12 object-contain"
                       />
                       <motion.div
-                        className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={false}
+                        className="absolute inset-0 rounded-2xl bg-primary/10"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.2 }}
                       />
                     </motion.div>
-                    <span className="text-xs text-muted-foreground mt-2 group-hover:text-foreground transition-colors duration-300">
+                    <motion.span 
+                      className="text-xs mt-2"
+                      initial={{ color: "hsl(var(--muted-foreground))" }}
+                      whileHover={{ color: "hsl(var(--foreground))" }}
+                      transition={{ duration: 0.2 }}
+                    >
                       {skill.name}
-                    </span>
+                    </motion.span>
                   </motion.div>
                 ))}
               </motion.div>
