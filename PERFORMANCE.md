@@ -106,3 +106,4 @@ After optimization:
 1. Check image formats (WebP/AVIF)
 2. Verify proper sizing attributes
 3. Consider using a CDN for image delivery
+4. new line for push the last version
