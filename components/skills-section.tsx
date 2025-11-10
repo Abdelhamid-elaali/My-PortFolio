@@ -80,7 +80,7 @@ const categorySkillIcons = [
 const techToolsIcons = [
   { name: "GitHub", icon: "/assets/skills/github1.png", level: "Expert" },
   { name: "GitLab", icon: "/assets/skills/gitlab.png", level: "Advanced" },
-  { name: "Jira", icon: "/assets/skills/jira1.png", level: "Advanced" },
+  { name: "Jira", icon: "/assets/skills/jira2.png", level: "Advanced" },
   { name: "Scrum", icon: "/assets/skills/scrum1.png", level: "Advanced" },
   { name: "Trello", icon: "/assets/skills/trello.png", level: "Intermediate" },
   { name: "VMware", icon: "/assets/skills/vmware.png", level: "Advanced" },
